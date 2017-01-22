@@ -3,7 +3,9 @@
 Unity game data manager for Unity using hierarchical structures. **Data Inheritance!**.
 
 [Documentation](http://unitydatablocks.com/docs)
+
 [Official Website](http://unitydatablocks.com/)
+
 [Unity Forums](https://forum.unity3d.com/threads/released-datablocks-revolutionary-game-data-manager.321254/)
 
 ## Example Usage ##
