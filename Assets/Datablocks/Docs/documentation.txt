@@ -1,0 +1,85 @@
+Full documentation can be found at:
+http://unitydatablocks.com/docs
+
+---------------------------------------
+
+_Demo Scene_
+
+The demo scene is located at "Datablocks/Example/Scenes/demo.unity"
+
+This scene shows how you can use datablocks in a game using a simple interface. Click a spawn button on the left
+to spawn a mob. Each button is assigned a MobDatablock that is used to spawn the mob.
+
+The mobs are represented by simple spheres and cubes and have their material textures set depending on the ModelColor
+filed on the datablock.
+
+Clicking a on a spawned mob will slay it and generate loot based on the loot table list on the MobDatablock. Clicking
+on an item will show its description.
+
+You can view the example datablocks in the the "Datablocks/Example/Game Data" folder
+
+_Getting Started_ (View the full getting started tutorial at http://unitydatablocks.com/docs/manual/getting-started)
+
+In this tutorial we will be creating a new type of datablock to store spell information, create a few datablocks to see how datablocks and their chidren interact, and create a simple scipt to access them.
+Defining the spell datablock
+
+Create an empty c# script inside your project named SpellDatablock and then change the inheritance of the class from MonoBehvior to Datablock. You can remove the starting methods. Your class should look like this:
+    
+	public class SpellDatablock : Datablock
+	{
+	} 
+	
+To do anything useful we need to define some fields inside our datablock class. You can define Datablock fields just as would regular MonoBehavior fields. Lets add a few fields:
+    
+	public class SpellDatablock : Datablock
+	{
+		public int manaCost;
+		public string description;
+		public float castingTime;
+	} 
+	
+It's as simple as that to define your datablock structures, just add fields like you would a normal class.
+
+
+Now that we have a datablock defined, lets create a base spell datablock. Open the Datablock List view by selecting the Datablocks/View Datablocks menu item.
+
+Click the Create New button and select SpellDatablock. Select a directory to save the new datablock. This will create a new Spell Datablock with no parent and all default values. We will use this datablock as our base spell that all other spells will inherit from.
+
+With the new spell datablock selected, change the name of it by editing the name field at the top of the inspector. Name this datablock “Base Spell”.
+
+Lets create a new child of this datablock by clicking “Create new child”. Rename this datablock to “Fireball”. Change the mana cost to 10. You will see the checkbox next to the field chance to be checked. This indicated this field overrides its parents value with its own.
+
+Now go back to the base spell datablock and set the casting time to 1.5 then select the fireball datablock. You will see the fireball’s mana cost value inherited from its parent. If you change the casting time on the fireball, the override checbkox will be checked and the new value will override the parent.
+
+Lets create a simple script to access our new datablocks. The script will accept a SpellDatablock in the inspector, and print out some values in the console when it starts.
+
+Add a new C# script to your project called SpellCaster.cs
+
+Replace the contents of the script with the following:
+    
+	using UnityEngine;
+
+	public class SpellCaster : MonoBehaviour
+	{
+		public SpellDatablock currentSpell;
+
+		void Start ()
+		{
+			// Cast the spell at the start for simplicity
+			Cast();
+		}
+
+		private void Cast()
+		{
+			// Write out some sample values to the console
+			Debug.Log("Casting " + currentSpell.name + " for " + currentSpell.manaCost + " mana (Description: " + currentSpell.description + ")");
+		}
+	} 
+	
+Create an empty GameObject in your project and attach this script to it. You will notice in the inspector a spot that accepts a SpellDatablock. You can drag the Fireball datablock into the field, or you can click the small circle and browse for the asset.
+Pressing play will display the datablock's values in your console.
+
+---------------------------------------
+
+Full documentation can be found at:
+http://unitydatablocks.com/docs
