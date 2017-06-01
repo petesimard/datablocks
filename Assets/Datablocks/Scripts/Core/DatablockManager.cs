@@ -185,10 +185,19 @@ namespace Datablocks
             // If there is already a DatablockManager, destroy this one
             if (instance)
             {
-                enabled = false;
-                Destroy(gameObject);
-                return;
+                if (instance.datablocks.Count == 0)
+                {
+                    Destroy(instance);
+                    instance = this;
+                }
+                else
+                {
+                    enabled = false;
+                    Destroy(gameObject);
+                    return;
+                }
             }
+
 
             instance = this;
 
